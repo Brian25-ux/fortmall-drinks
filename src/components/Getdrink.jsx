@@ -1,73 +1,135 @@
-import { useState, useEffect } from "react"; // for state management
-import axios from "axios"; // For API Access
-import { Link, useNavigate } from "react-router-dom"; // For link to other component
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Mycarousel from "./Mycarousel";
+import "./Getdrink.css";
 
 const Getdrink = () => {
 
-    // Initialize Hooks
-    const [products, setProducts] = useState([]);  // Default to empty array instead of a string
-    const [loading, setLoading] = useState(""); // For loading message
-    const [error, setError] = useState(""); // error message hook
-    
+    const [products, setProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const navigate = useNavigate()
-    // Specify image location URL
-    const img_url = "https://brianhyrax.alwaysdata.net/static/images/"
-    
-    const getproducts = async() => {
-        setLoading("Please wait, We are retrieving the products .."); // Set loading message when fetching starts
+    const navigate = useNavigate();
+
+    const img_url = "https://brianhyrax.alwaysdata.net/static/images/";
+
+    // FETCH PRODUCTS
+    const getproducts = async () => {
+        setLoading(true);
+        setError("");
+
         try {
-            const response = await axios.get("https://brianhyrax.alwaysdata.net/api/get_product_details")
-            setProducts(response.data)
-            setLoading("")
-        }
-        catch(error) {
-            setLoading("")
-            setError("There was an Error")    
-        }
-    }
+            const response = await axios.get(
+                "https://brianhyrax.alwaysdata.net/api/get_product_details"
+            );
 
-    // Call getproducts on Use Effect
+            const sortedProducts = response.data.sort(
+                (a, b) => Number(a.product_cost) - Number(b.product_cost)
+            );
+
+            setProducts(sortedProducts);
+
+        } catch (err) {
+            setError("There was an error fetching products");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-       getproducts()
-    }, []); // empty dependency array ensures this runs only once when the component mounts
+        getproducts();
+    }, []);
+
+    // 🛒 ADD TO CART
+    const addToCart = (product) => {
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+        cart.push({
+            id: Date.now(),
+            product_name: product.product_name,
+            product_cost: product.product_cost,
+            product_photo: product.product_photo
+        });
+
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+
+        alert(`${product.product_name} added to cart`);
+    };
+
+    // SEARCH FILTER
+    const filteredProducts = products.filter((product) =>
+        product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="row">
-            <h3 className="mt-5">Available Drinks</h3>
-            <Mycarousel/>
 
-            {/* Bind Error Messages */}
-            {loading && <p>{loading}</p>}
+            <h3 className="mt-5">Available Drinks</h3>
+
+            <Mycarousel />
+
+            {/* SEARCH BAR */}
+            <div className="col-12 mb-4">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search drinks..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            {loading && <p>Please wait, we are retrieving the products...</p>}
             {error && <p className="text-danger">{error}</p>}
 
-           
-            {/* Map over products and display them */}
-            {products.map((product) => (
-                <div className="col-md-3 justify-content-center mb-4" key={product.id}>
-                    {/* Card with equal size */}
-                    <div className="card shadow card-margin">
-                        <img 
-                            className="product_img mt-4"
-                            src={img_url + product.product_photo} 
+            {/* PRODUCTS */}
+            {filteredProducts.map((product) => (
+                <div className="col-md-3 mb-4" key={product.id}>
+
+                    <div className="card shadow card-margin h-100">
+
+                        <img
+                            className="product_img"
+                            src={img_url + product.product_photo}
                             alt={product.product_name}
                         />
-                        <div className="card-body">
-                            <h5 className="mt-2">{product.product_name}</h5>
-                            <p className="text-muted">{product.product_description}</p>
-                            <b className="text-warning">{product.product_cost} KES</b> <br />
-                           <button 
-            className="btn btn-dark mt-2 w-100"
-            onClick={() => navigate('/makepayment', { state: { product } })}>
-                        Purchase Now
-            </button>
+
+                        {/* ✅ FIXED ALIGNMENT SECTION */}
+                        <div className="card-body d-flex flex-column">
+
+                            <h5>{product.product_name}</h5>
+
+                            <p className="text-muted">
+                                <i>{product.product_description}</i>
+                            </p>
+
+                            {/* PUSH TO BOTTOM */}
+                            <div className="mt-auto">
+
+                                <b className="text-warning d-block mb-2">
+                                    {product.product_cost} KES
+                                </b>
+
+                                <button
+                                    className="btn btn-success w-100"
+                                    onClick={() => addToCart(product)}
+                                >
+                                    Add to Cart
+                                </button>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
-            ))}        
+            ))}
+
         </div>
     );
-}
+};
 
 export default Getdrink;

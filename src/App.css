@@ -1,38 +1,124 @@
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f4f7fb, #e9efff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* APP WRAPPER */
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* HEADER (BRAND STYLE) */
 .App-header {
-  background-color: #282c34;
-  min-height: 20vh;
+  background: linear-gradient(135deg, #0d6efd, #6f42c1);
+  min-height: 18vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  font-size: calc(12px + 1.5vmin);
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  letter-spacing: 1px;
 }
 
-.App-link {
-  color: #61dafb;
+/* CONTENT AREA */
+.content-area {
+  min-height: 80vh;
+  padding: 25px;
+  margin: 20px;
+  border-radius: 18px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* GLOBAL CARDS (GLASS STYLE) */
+.card {
+  border: none;
+  border-radius: 20px !important; /* 🔥 forced smooth corners */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  overflow: hidden; /* 🔥 ensures clean edges */
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* PRODUCT CARDS (SHOP STYLE) */
+.product-card {
+  border: none;
+  border-radius: 24px !important; /* 🔥 more curved */
+  overflow: hidden;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+/* BUTTONS */
+.btn {
+  border-radius: 12px !important;
+  transition: 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+/* NAV */
+nav {
+  padding: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* INPUTS */
+.form-control {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* SIGNUP / FORMS CARD */
+.signup-card {
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.9);
+  transition: 0.3s ease;
+}
+
+.signup-card:hover {
+  transform: translateY(-3px);
+}
+
+/* FOOTER */
+.footer {
+  background: linear-gradient(135deg, #0d6efd, #6f42c1);
+  color: white;
+  padding: 18px;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  letter-spacing: 0.5px;
+}
+
+/* THE CENTER PAGE */
+.center-page {
+  min-height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

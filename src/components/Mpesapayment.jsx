@@ -1,65 +1,164 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Mpesapayment = () => {
-  // declaring stae variables
-  const{product} = useLocation().state ||{};
-  const[phone,setPhone] = useState("")
-  const[message,setMessage] =useState("")
-  const[error, setError] = useState("")
 
-  // image url
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const img_url = "https://brianhyrax.alwaysdata.net/static/images/"
+  // 🛒 CART STATE (now editable)
+  const [cart, setCart] = useState(location.state?.cart || []);
 
-  const handleSubmit = async(e)=>{
-    e.preventDefault()
-    setMessage("Please wait as we process the transaction")
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const img_url = "https://brianhyrax.alwaysdata.net/static/images/";
+
+  // 🗑 REMOVE ITEM FUNCTION
+  const removeItem = (id) => {
+    const updatedCart = cart.filter(item => item.id !== id);
+
+    setCart(updatedCart);
+    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  // 💰 TOTAL CALCULATION
+  const totalAmount = cart.reduce(
+    (sum, item) => sum + Number(item.product_cost),
+    0
+  );
+
+  // 💳 HANDLE MPESA PAYMENT
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setMessage("Please wait as we process the transaction...");
+    setError("");
+
     try {
-      // retrieving user and products details
-      const formData= new FormData()
-      formData.append("phone",phone)
-      formData.append("amount",product.product_cost)
+      const formData = new FormData();
+      formData.append("phone", phone);
+      formData.append("amount", totalAmount);
 
-      // adding the base url
-      const response = await axios.post("https://brianhyrax.alwaysdata.net/api/mpesa_payment",formData)
-      console.log(response.data)
+      const response = await axios.post(
+        "https://brianhyrax.alwaysdata.net/api/mpesa_payment",
+        formData
+      );
+
+      setMessage(response.data.message || "Payment initiated successfully");
     } catch (error) {
-      setError(error.message)
-      
+      setError("Payment failed. Try again.");
     }
+  };
+
+  // 🚨 EMPTY CART HANDLING
+  if (cart.length === 0) {
+    return (
+      <div className="container mt-4 text-center">
+        <h3>No items found for payment</h3>
+
+        <button
+          className="btn btn-primary mt-3"
+          onClick={() => navigate("/getdrink")}
+        >
+          Go back to Getdrink
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className='row  justify-content-center mb-4'>
-      <h1 id='h1mpesa'>LIPA NA MPESA</h1>
-      <div className=' col-md-6 card shadow card-margin p-2'>
-      <img  className='mt-2 product_img' src={img_url + product.product_photo} alt={product.product_photo} />
-      <p>Product Name :{product.product_name}</p>
-      <p className='text-warning'>Drink Cost :Ksh. {product.product_cost}</p>
-      {/* bind variables */}
-      {phone}
-      {message}
-      {error}
+    <div className="container mt-4">
 
-      {/* phone input */}
+      <h1 id='h1mpesa' className="text-center mb-4">
+        LIPA NA MPESA
+      </h1>
 
-      <form action= "" onSubmit={handleSubmit}>
-        <label>Phone number</label>
-        <input type="tel"
-               placeholder='Enter your phone number'
-               className='form-control'
-               onChange={(e)=>setPhone(e.target.value)} /><br/>
-        
-        <button className='btn btn-dark'>
-          Make payment
-        </button>
+      {/* 🟦 PRODUCTS GRID */}
+      <div className="row">
 
-      </form>
+        {cart.map((item) => (
+          <div className="col-md-4 mb-4" key={item.id}>
+
+            <div className="card shadow h-100 p-2">
+
+              <img
+                className="product_img card-img-top"
+                src={img_url + item.product_photo}
+                alt={item.product_name}
+                style={{ height: "180px", objectFit: "cover" }}
+              />
+
+              <div className="card-body text-center">
+
+                <h5>{item.product_name}</h5>
+
+                <p className="text-warning fw-bold">
+                  KES {item.product_cost}
+                </p>
+
+                {/* 🗑 REMOVE BUTTON */}
+                <button
+                  className="btn btn-danger w-100 mt-2"
+                  onClick={() => removeItem(item.id)}
+                >
+                  Remove
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        ))}
+
       </div>
-    </div>
-  )
-}
 
-export default Mpesapayment
+      {/* 💰 TOTAL */}
+      <div className="text-center mt-3">
+        <h4 className="text-success">
+          Total: KES {totalAmount}
+        </h4>
+      </div>
+
+      {/* STATUS MESSAGES */}
+      <div className="text-center mt-2">
+        <p className="text-info">{message}</p>
+        <p className="text-danger">{error}</p>
+      </div>
+
+      {/* 💳 PAYMENT FORM */}
+      <div className="row justify-content-center mt-3">
+
+        <div className="col-md-6">
+
+          <form onSubmit={handleSubmit}>
+
+            <label>Phone number</label>
+
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              className="form-control"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+
+            <br />
+
+            <button className="btn btn-info w-100">
+              Pay Now
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
+
+export default Mpesapayment;

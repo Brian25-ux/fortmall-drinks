@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light pt-5 pb-3 mt-5">
+    <footer className="footer pt-5 pb-3 mt-5">
       <div className="container">
         <div className="row">
 
@@ -24,27 +24,30 @@ const Footer = () => {
               bulk supply for events and businesses, and special discounts on
               large orders. Whether it's a party, office, or home, we've got you covered.
             </p>
-            <ul className="list-unstyled">
-              <li>✔ Home Delivery</li>
-              <li>✔ Event Supply</li>
-              <li>✔ Wholesale Orders</li>
-              <li>✔ 24/7 Customer Support</li>
+            <ul className="list">
+              <li>* Event Supply</li>
+              <li>* Wholesale Orders</li>
+              <li>* 24/7 Customer Support</li>
             </ul>
           </div>
 
-          {/* Column 3: Contact + Social Media */}
+          {/* Contact us */}
           <div className="col-md-4 mb-4">
             <h5>Contact Us</h5>
             <p>Email: support@fortmall.com</p>
-            <p>Phone: +254 700 123 456</p>
+            <p>Phone: +254 782312 501 </p>
             <p>Location: Nairobi, Kenya</p>
 
             <h6 className="mt-3">Follow Us</h6>
             <div>
-              <a href="#" className="text-light me-3">Facebook</a>
-              <a href="#" className="text-light me-3">Instagram</a>
-              <a href="#" className="text-light me-3">Twitter</a>
-              <a href="#" className="text-light">TikTok</a>
+             <a
+                href="https://wa.me/254782312501?text=Hello%20Fortmall%20Drinks%2C%20I%20want%20to%20make%20an%20order"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-success mt-2"
+              >
+              Chat on WhatsApp
+             </a>
             </div>
           </div>
 
@@ -52,11 +55,19 @@ const Footer = () => {
 
         <hr className="border-light" />
 
+        {/* privacy link */}
+        <div className="text-center mb-2">
+          <a href="/privacy-policy" className="text-light me-3">
+            Privacy Policy
+          </a>
+        </div>
+
         <div className="text-center">
           <p className="mb-0">
             © {new Date().getFullYear()} Fortmall Drinks. All rights reserved.
           </p>
         </div>
+
       </div>
     </footer>
   );
