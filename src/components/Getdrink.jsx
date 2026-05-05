@@ -68,20 +68,24 @@ const Getdrink = () => {
 
             <h3 className="mt-5">Available Drinks</h3>
 
-            <Mycarousel />
+            <Mycarousel /><br/>p
+
+
 
             {/*the search bar */}
-            <div className="col-12 mb-4">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search drinks..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
 
-            {loading && <p>Please wait, we are retrieving the products...</p>}
+            <div className="d-flex justify-content-center mb-4 col-12">
+                <div className="w-50">
+                    <input
+                        type="text"
+                        className="form-control form-control-lg text-center"
+                        placeholder="Search drinks..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+            </div>
+                        {loading && <p>Please wait, we are retrieving the products...</p>}
             {error && <p className="text-danger">{error}</p>}
 
             {/* the products */}
@@ -104,8 +108,6 @@ const Getdrink = () => {
                             <p className="text-muted">
                                 <i>{product.product_description}</i>
                             </p>
-
-                            {/* PUSH TO BOTTOM */}
                             <div className="mt-auto">
 
                                 <b className="text-warning d-block mb-2">

@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FaWhatsapp } from "react-icons/fa";
 
 import Signin from './components/Signin';
 import Signup from './components/Signup';
@@ -57,30 +56,6 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
 
   return (
     <div className="App">
-      <a
-        href="https://wa.me/254729611561"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          position: "fixed",
-          top: "15px",
-          right: "15px",
-          backgroundColor: "#64fd9cff",
-          color: "white",
-          width: "55px",
-          height: "55px",
-          borderRadius: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0px 4px 10px rgba(10, 2, 2, 0.3)",
-          zIndex: 1000,
-        }}
-      >
-        <FaWhatsapp size={24} />
-      </a>
-
-      {/*  HEADER (matches footer style) */}
       <div className="App-header">
         <h2 className="m-0">Fortmall Drinks</h2>
       </div>
@@ -98,7 +73,7 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Collapsible menu */}
+        {/* Collapsible button */}
         <div className="collapse navbar-collapse" id="navbarNav">
 
           <div className="navbar-nav ms-auto d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
@@ -132,7 +107,7 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
                   className="btn btn-outline-light m-1 position-relative"
                 >
                   Cart
-
+                  
                   {cartCount > 0 && (
                     <span className="badge bg-danger position-absolute top-0 start-100 translate-middle">
                       {cartCount}
