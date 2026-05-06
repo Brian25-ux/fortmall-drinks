@@ -146,7 +146,7 @@ const Mpesapayment = () => {
 
             <br />
 
-            <button className="btn btn-info w-100">
+            <button className="btn btn-success w-100">
               Pay Now
             </button>
 

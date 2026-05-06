@@ -52,62 +52,92 @@ function App() {
 
 function MainApp({ user, setUser, isAuthenticated, logout }) {
 
-  const cartCount = JSON.parse(sessionStorage.getItem("cart"))?.length || 0;
+  const [open, setOpen] = useState(false);
+
+  const cartCount =
+    JSON.parse(sessionStorage.getItem("cart"))?.length || 0;
 
   return (
     <div className="App">
+
       <div className="App-header">
         <h2 className="m-0">Fortmall Drinks</h2>
       </div>
 
-      {/* the navbar */}
+      {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg navbar-info bg-info px-3">
 
         {/* Toggle button */}
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
+          onClick={() => setOpen(!open)}
+          aria-controls="navbarNav"
+          aria-expanded={open}
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Collapsible button */}
-        <div className="collapse navbar-collapse" id="navbarNav">
+        {/* COLLAPSIBLE MENU */}
+        <div
+          className={`collapse navbar-collapse ${open ? "show" : ""}`}
+          id="navbarNav"
+        >
 
           <div className="navbar-nav ms-auto d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
 
             {!isAuthenticated ? (
               <>
-                <Link to="/signup" className="btn btn-outline-light m-1">
+                <Link
+                  to="/signup"
+                  className="btn btn-outline-light m-1"
+                  onClick={() => setOpen(false)}
+                >
                   Sign up
                 </Link>
 
-                <Link to="/signin" className="btn btn-outline-light m-1">
+                <Link
+                  to="/signin"
+                  className="btn btn-outline-light m-1"
+                  onClick={() => setOpen(false)}
+                >
                   Sign in
                 </Link>
               </>
             ) : (
               <>
-                <Link to="/getdrink" className="btn btn-outline-light m-1">
+                <Link
+                  to="/getdrink"
+                  className="btn btn-outline-light m-1"
+                  onClick={() => setOpen(false)}
+                >
                   Get drink
                 </Link>
 
-                <Link to="/adddrink" className="btn btn-outline-light m-1">
+                <Link
+                  to="/adddrink"
+                  className="btn btn-outline-light m-1"
+                  onClick={() => setOpen(false)}
+                >
                   Add drink
                 </Link>
 
-                <Link to="/aboutus" className="btn btn-outline-light m-1">
+                <Link
+                  to="/aboutus"
+                  className="btn btn-outline-light m-1"
+                  onClick={() => setOpen(false)}
+                >
                   About us
                 </Link>
 
                 <Link
                   to="/cart"
                   className="btn btn-outline-light m-1 position-relative"
+                  onClick={() => setOpen(false)}
                 >
                   Cart
-                  
+
                   {cartCount > 0 && (
                     <span className="badge bg-danger position-absolute top-0 start-100 translate-middle">
                       {cartCount}
@@ -115,7 +145,13 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
                   )}
                 </Link>
 
-                <button onClick={logout} className="btn btn-warning m-1">
+                <button
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
+                  className="btn btn-danger m-1"
+                >
                   Logout
                 </button>
               </>
@@ -172,7 +208,6 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
 
       </Routes>
 
-      {/* FOOTER */}
       <Footer />
 
     </div>
