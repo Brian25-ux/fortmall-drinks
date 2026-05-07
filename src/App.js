@@ -61,7 +61,7 @@ function MainApp({ user, setUser, isAuthenticated, logout }) {
     <div className="App">
 
       <div className="App-header">
-        <h2 className="m-0">Fortmall Drinks</h2>
+        <h2 className="H2">FORTMALL DRINKS</h2>
       </div>
 
       {/* NAVBAR */}

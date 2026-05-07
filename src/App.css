@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: linear-gradient(180deg, #e7e8ea, #f4f5f7);
+  background: linear-gradient(180deg, #6FD1D7, #6FD1D7);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,14 +11,14 @@ body {
 
 /* HEADER (BRAND STYLE) */
 .App-header {
-  background: linear-gradient(135deg, #0d6efd, #406bf8);
+  background: linear-gradient(135deg, #456783, #456783);
   min-height: 18vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: calc(12px + 1.5vmin);
+  font-size: calc(20px + 1.5vmin);
   font-weight: bold;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   letter-spacing: 1px;
@@ -104,7 +104,7 @@ nav a {
 
 /* FOOTER */
 .footer {
-  background: linear-gradient(135deg, #0d6efd, #406bf8);
+  background: linear-gradient(135deg, #456783, #456783);
   color: white;
   padding: 18px;
   margin-top: 30px;
@@ -115,10 +115,16 @@ nav a {
   letter-spacing: 0.5px;
 }
 
-/* THE CENTER PAGE */
 .center-page {
   min-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#navbar{
+  background: 3B7597;
+}
+.H2{
+  font-size: larger;
+  font-style: initial;
 }

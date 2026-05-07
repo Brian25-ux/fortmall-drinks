@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="col-md-4 mb-4">
             <h5>Our Services</h5>
             <p>
-              Bulk supply, and special discounts for events and businesses.
+              Big supplies, and special discounts for events and businesses.
             </p>
             <ul className="list-unstyled">
               <li>* Event Supply</li>

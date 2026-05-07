@@ -115,10 +115,10 @@ const Getdrink = () => {
                                 </b>
 
                                 <button
-                                    className="btn btn-success w-100"
+                                    className="btn btn-info w-100"
                                     onClick={() => addToCart(product)}
                                 >
-                                    Add to Cart
+                                    <h4>Add to Cart</h4>
                                 </button>
 
                             </div>

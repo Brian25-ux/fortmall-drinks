@@ -3,10 +3,10 @@ import React from "react";
 const AboutUs = () => {
 return ( <div className="about-us">
     
-    <h3><i><u>"bringing you the best of the drinks"</u></i></h3>
+    <h3><i><u>"bringin you the best of the drinks"</u></i></h3>
     
      <p>
-Welcome to our store — your trusted destination for quality wines and premium spirits.
+Welcome to our store — your trustd destination for quality wines and premium spirts.
 We are passionate about bringing people together through exceptional drinks, whether
 you're celebrating life’s biggest milestones or simply enjoying a quiet evening at home. </p>
 
@@ -26,9 +26,9 @@ you're celebrating life’s biggest milestones or simply enjoying a quiet evenin
   </p>
 
   <p>
-    At the heart of our business is a commitment to quality and customer satisfaction. 
+    At the heart of our business is a comitment to quality and customer satisfactin. 
     We understand that choosing the right drink can elevate any moment, and that’s why 
-    we aim to provide not just products, but an experience that you can trust.
+    we aim to provide not just produts, but an experience that you can trust.
   </p>
 
   <p>
@@ -38,7 +38,7 @@ you're celebrating life’s biggest milestones or simply enjoying a quiet evenin
   </p>
 
   <p>
-    More than just a store, we are a community of drink enthusiasts who appreciate 
+    More than just a store, we are a community of drink who appreciate 
     craftsmanship, flavor, and the stories behind every bottle. As we continue to grow, 
     our mission remains the same — to connect people with drinks they love and moments 
     they’ll never forget.
